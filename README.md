@@ -1,2 +1,4 @@
-# kraus-static
-https://www.kraus.wienbibliothek.at/ aber statisch
+# legal Kraus static
+
+
+* build with [DSE-Static-Cookiecutter](https://github.com/acdh-oeaw/dse-static-cookiecutter)
