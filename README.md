@@ -1,4 +1,4 @@
 # legal Kraus static
 
 
-* build with [DSE-Static-Cookiecutter](https://github.com/acdh-oeaw/dse-static-cookiecutter)
+* sollte [Rechtsakten Karl Kraus](https://www.kraus.wienbibliothek.at/) statisch abbilden
