@@ -141,3 +141,10 @@ desktop.ini
 
 # MacOS
 .DS_Store
+/data/editions
+/data/indices
+/data/cases_tei
+/boehm_tei
+python_scripts/create_case_index.py
+/html/*.xml
+cases-index.json

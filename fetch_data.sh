@@ -10,8 +10,8 @@ if [ "${be_quiet}" != false ] ;  then
     q_flag="-q"
 fi
 
-# def vars
-python_folder="./python_scripts"
+# # def vars
+python_folder="python_scripts"
 ziparchive="./ziparchive.zip"
 raw_tei_folder="./raw_tei"
 editions_folder="./data/editions"
@@ -21,57 +21,41 @@ boehm_folder="./boehm_tei"
 kraus_archive_top_level_folder="${raw_tei_folder}/legalkraus-data-main"
 boehm_archive_top_level_folder="${raw_tei_folder}/boehm-retro-main"
 
-# init import directory
+# # init import directory
 rm -rf $raw_tei_folder
-# 1. kraus archive
-# get data from archive
+# # 1. kraus archive
+# # get data from archive
 echo "fetch kraus archive"
 wget $q_flag https://github.com/karl-kraus/legalkraus-data/archive/refs/heads/main.zip --output-document=$ziparchive
-# unzip files to directory
+# # unzip files to directory
 unzip $q_flag $ziparchive -d $raw_tei_folder
-# remove old/zip files
+# # remove old/zip files
 rm -rf $ziparchive
 rm -rf $editions_folder
 rm -rf $indices_folder
 rm -rf $cases_folder
-# move new files to destination
+# # move new files to destination
 mv "${kraus_archive_top_level_folder}/objects" $editions_folder
 mv "${kraus_archive_top_level_folder}/old_cols" $cases_folder
 mv "${kraus_archive_top_level_folder}/indices" $indices_folder
-# delete current archive import
+# # delete current archive import
 rm -rf $raw_tei_folder
 
-# 2. boehm archive
+# # 2. boehm archive
 echo "fetch boehm archive"
 wget $q_flag https://github.com/karl-kraus/boehm-retro/archive/refs/heads/main.zip --output-document=$ziparchive
 # unzip files to directory
 unzip $q_flag $ziparchive -d $raw_tei_folder
-# remove old/zip files
+# # remove old/zip files
 rm -rf $ziparchive
 rm -rf $boehm_folder
-# move new files to destination
+# # move new files to destination
 mkdir $boehm_folder
 mv "${boehm_archive_top_level_folder}/data/editions" $boehm_folder
-# delete current import
+# # delete current import
 rm -rf $raw_tei_folder
 
-echo "fetch indices"
-python "${python_folder}/download_index_files.py"
 
-# change filepaths in ref
-find $cases_folder -type f -name "C_*.xml" -print0 | xargs -0 sed -i 's@ref target="https://id.acdh.oeaw.ac.at/D_@ref target="https://id.acdh.oeaw.ac.at/legalkraus/D_@g'
 
-echo "update Fackel Register"
-python "{$python_folder}fackel_register.py"
-
-echo "update listlegal.xml"
-python "{$python_folder}listlegal.py"
-
-####################
-echo "starting basic cleanup"
-./basic_cleanup.sh
-####################
-
-echo "create cases-index.json"
-# dependendcy?
-python "{$python_folder}create_case_index.py"
+# echo "create cases-index.json"
+python "${python_folder}/create_case_index.py"

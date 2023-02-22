@@ -7,10 +7,10 @@ from acdh_tei_pyutils.tei import TeiReader
 from dateutil.parser import parse
 from tqdm import tqdm
 
-files = glob.glob('../data/cases_tei/C*.xml')
+files = glob.glob('./data/cases_tei/C*.xml')
 tei_ns = {'tei': "http://www.tei-c.org/ns/1.0"}
 faulty = []
-cases_index_json_path = '../cases-index.json'
+cases_index_json_path = './cases-index.json'
 
 def is_date(string, fuzzy=False):
     """
